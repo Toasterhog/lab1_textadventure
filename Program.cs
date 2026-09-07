@@ -1,7 +1,9 @@
 ﻿Console.WriteLine("welcome to adveture!");
 
+
 class Program {
-    static void Main(string[] args) {...}
+    string name = "";
+    static void Main(string[] args) {}
     static string Ask(string question) {
         string response;
         do {
