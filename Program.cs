@@ -11,19 +11,4 @@ do
     if (yesOrno != "yes" && yesOrno != "ok"){
         name = "";
     }
-} while (name != "");
-
-
-
-class Program {
-    string name = "";
-    static void Main(string[] args) {}
-    static string Ask(string question) {
-        string response;
-        do {
-            Console.Write(question);
-            response = Console.ReadLine().Trim();
-        } while (response == "");
-        return response;
-    }
-}
+} while (name == "");
