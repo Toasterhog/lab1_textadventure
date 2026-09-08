@@ -18,7 +18,7 @@ class MyProgram {
         }
     }
     static bool AskYesOrNo() {
-        string response = Console.readline();
+        string response = Console.ReadLine();
         if(response == "yes"){
             return true;
         }
@@ -29,26 +29,29 @@ class MyProgram {
     public static void GameStart()
     {
         Character character = new Character();
-        while (character.Location != "End"){
+        while (character.Location != "End")
+        {
             if (character.Location == "StartingArea"){
                 StartingArea(character);
             } 
-            else if (character.Location == "ancient forest"
+            else if (character.Location == "ancient forest")
             {
                 AncientForest();
             }
-            else{ Console.Error.Write}
+            else{
+                Console.Error.Write($"{character.Location} is not implemented!");
+            }
         }
     }
     public static void StartingArea(Character character) {
         Console.Clear();
         Console.WriteLine("Welcome to adveture!");
-        do
-        { character.Name = Ask("What is your name, adventurer? "); }
-        while (!AskYesOrNo($"So {character.Name} is truly your name?"));
-
-        character.Loccation = "ancient forest";
-
+        do{
+            Console.WriteLine("What is your name, adventurer");
+            character.Name = GetAnswer();
+            Console.WriteLine($"So {character.Name} is truly your name?");
+        }while (!AskYesOrNo());
+        character.Location = "ancient forest";
     }
 
     public static void AncientForest()
