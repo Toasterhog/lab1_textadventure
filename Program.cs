@@ -108,9 +108,8 @@ class MyProgram {
             "" +
             "You can only pick up one of these items."
         );
-        string it = AskChoise(new string[] {"knife","key"});
-        character.AddItemToInventory(it);
-        Console.Clear();
+        string item_picked_upp = AskChoise(new string[] {"knife","key"});
+        character.AddItemToInventory(item_picked_upp);
         character.Location = "Mountain Cave";
         Console.Clear();
     }
@@ -178,7 +177,32 @@ class MyProgram {
         Random random = new Random();
         int roll = random.Next(1, 7);
         return roll;
-    }   
+    }
+
+    public bool FightEvent(Monster monster)
+    {
+        Console.WriteLine($"Welcome to a fight event! \n your'e fighting a {monster.Name} with {monster.Helth} helth.\n {monster.Name} is exited to hurt you with damage {monster.Damage}.");
+        while (monster.Helth > 0) //rounds
+        {
+            //player turn
+            switch (AskChoise(new string[] { "attack", "run", "do a flip" }))
+            {
+                case "attack":
+                    int damage_dealing = DnDice();
+                    Console.WriteLine($"You suddenly, forcfully, with no respect of the well being of the {Monster.Name}, \n attack it with a strength that in die terms is equivalent to {damage_dealing}.")
+                    monster.Helth -= DnDice();
+                    Console.WriteLine($"monster health is now {Monster.Helth}.");
+                    break;
+                case "run":
+                    break;
+                case "do a flip":
+                    Console.WriteLine($"{monster.Name} is amazed by your effort")
+                default:
+                    break;
+                    
+            }
+        }
+    }
     
 }
 class Character
@@ -197,9 +221,9 @@ class Character
 
 
 
-class Monsters {
-    public int monsterHealth = 100;
-    public string monsterName;
-    public int monsterDamage = 10;
+class Monster {
+    public int Health = 100;
+    public string Name;
+    public int Damage = 10;
 
 }
