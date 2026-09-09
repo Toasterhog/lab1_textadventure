@@ -89,6 +89,7 @@ class MyProgram {
             character.Name = GetAnswer();
             Console.WriteLine($"So {character.Name} is truly your name?");
         }while (!AskYesOrNo());
+        Console.Clear();
         character.Location = "ancient forest";
     }
 
@@ -108,8 +109,8 @@ class MyProgram {
         );
         string it = AskChoise(new string[] {"knife","key"});
         character.AddItemToInventory(it);
+        Console.Clear();
         character.Location = "Mountain Cave";
-
     }
 
     public static void MountainCave()
@@ -118,11 +119,10 @@ class MyProgram {
         if (character.Inventory.Contains("key"))
         {
             Console.WriteLine("Where do you want to go?");
-            string place_to_go = AskChoise(new string[] { "deep_cave", "mountain peak" });
-            if (place_to_go == "deep_cave")
+            string choosen_place = AskChoise(new string[] { "deep cave", "mountain peak" });
+            if (choosen_place == "deep cave")
             {
-                character.Location = "deep_cave";
-                Console.WriteLine("Welcom to the Deep Cave!");
+                character.Location = "Deep Cave";
             }
             else
             {
@@ -131,6 +131,7 @@ class MyProgram {
         }
         else
         {
+            Console.Clear();
             Console.WriteLine("You can only go one way");
             character.Location = ("Mountain Peak");
         }
@@ -138,7 +139,9 @@ class MyProgram {
 
     public static void DeepCave()
     {
-        
+        Console.Clear();
+        Console.WriteLine("Welcom to the Deep Cave!");
+        Console.ReadLine();
     }
 
     public static void MountainPeak()
@@ -159,4 +162,12 @@ class Character
         Inventory.Add(itemToAdd);
         Console.WriteLine($"You picked up {itemToAdd}.");
     }
+}
+
+class Monsters
+{
+    public int creatureHealth = 100;
+    public string creatureName;
+    public int creatureDamage = 10;
+    
 }
