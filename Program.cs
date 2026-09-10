@@ -152,16 +152,16 @@ class MyProgram {
         string approach = AskChoise(new string[] { "Approach" , "Walk Away"});
         if (approach == "Approach")
         {
-            Console.WriteLine("You pick up the shiny item");
             if (DnDice() >= 3){
                 Console.WriteLine("You picked up the shiny item");
-            }   
-            
-            /*when you look closer at it you notice that it's just a cactus.\n" +
-            "A cactus is a plant block found in deserts and badlands. It grows over time and can sprout cactus flowers.\n" +
-                "It damages mobs and destroys minecarts and dropped items that touch it.\n" +
-                "While the.\n " +
-                "It damages mobs and destroys minecarts and dropped items that touch it.");*/
+                Console.WriteLine("when you look closer at it you notice that it's just a cactus.\n" +
+                                  "A cactus is a plant found in deserts and badlands. It grows over time and can sprout cactus flowers.\n" +
+                                  "It damages mobs and destroys minecarts and dropped items that touch it.");
+            }
+            else
+            {
+                Console.WriteLine("You'r hands are slippery and your attempt att picking upp the item unluckly fails");
+            }
         }
         else
         {
@@ -216,14 +216,6 @@ class Character
 }
 
 
-
-
-<<<<<<< HEAD
-class Monster {
-    public int Health = 100;
-    public string Name;
-    public int Damage = 10;
-=======
 class Monsters 
 {
     public int monsterHealth = 100;
@@ -237,5 +229,5 @@ class Monsters
         Damage = monsterDamage;
     }
 }
->>>>>>> 0149540f4fbc708ecb59f332e3692a70186e25d7
+
 
