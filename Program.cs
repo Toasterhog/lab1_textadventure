@@ -157,6 +157,7 @@ class MyProgram {
                 Console.WriteLine("when you look closer at it you notice that it's just a cactus.\n" +
                                   "A cactus is a plant found in deserts and badlands. It grows over time and can sprout cactus flowers.\n" +
                                   "It damages mobs and destroys minecarts and dropped items that touch it.");
+                character.AddItemToInventory("cactus");
             }
             else
             {
@@ -176,7 +177,7 @@ class MyProgram {
         return roll;
     }
 
-    public bool FightEvent(Monster monster)
+    public static bool FightEvent(Monsters monster)
     {
         Console.WriteLine($"Welcome to a fight event! \n your'e fighting a {monster.Name} with {monster.Helth} helth.\n {monster.Name} is exited to hurt you with damage {monster.Damage}.");
         while (monster.Helth > 0) //rounds
@@ -185,18 +186,46 @@ class MyProgram {
             switch (AskChoise(new string[] { "attack", "run", "do a flip" }))
             {
                 case "attack":
-                    int damage_dealing = DnDice();
+                    //characther.Attack(monster);
+                    int damage_dealing = characther.GetDamage();
                     Console.WriteLine($"You suddenly, forcfully, with no respect of the well being of the {Monster.Name}, \n attack it with a strength that in die terms is equivalent to {damage_dealing}.")
-                    monster.Helth -= DnDice();
+                    monster.Helth -= damage_dealing;
                     Console.WriteLine($"monster health is now {Monster.Helth}.");
+                    if (monster.Helth <= 0)
+                    {
+                        Console.WriteLine("monster is unhealthy.")
+                        return true;
+                    }
                     break;
                 case "run":
                     break;
                 case "do a flip":
-                    Console.WriteLine($"{monster.Name} is amazed by your effort")
+                    if (DnDice() == 6)
+                    {
+                        Console.WriteLine($"{monster.Name} thinks you look silly. It is dying of laugther. You have won the battle.");
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You land head first on the ground. You feel the weight of your body consentrat at your neck, forming a small insignificant crack in your spie.\n"+
+                                          " Sound of thin metal colliding with ground is heard, it's your coffe termos. You cannot live witout coffe.");
+                        return false;
+                    }
                 default:
                     break;
                     
+            }
+
+            if (monster.Helth <= 0)
+            {
+                Console.WriteLine($"You have killed {monster.name}.");
+                return true;
+            }
+            //monster turn
+            int monsterDieRoll = DnDice();
+            if (monsterDieRoll >= 4)
+            {
+                characther.Helth -= 1;
             }
         }
     }
@@ -208,6 +237,29 @@ class Character
     public int Health = 100;
     public List<string> Inventory = new List<string>();
     public string Location = "StartingArea";
+
+    public int GetDamage()
+    {
+        int damage = 1; //fist idk
+        if (Inventory.contains("knife"))
+        {
+            damage += 5;
+        }
+        else if (Inventory.contains("wood sword"))
+        {
+            damage += 2;
+        }
+        return damage;
+    }
+
+    public bool Attack(Monster monsterBeingAttacked)
+    {
+        int damage_dealing = GetDamage();
+        Console.WriteLine($"You suddenly, forcfully, with no respect of the well being of the {monsterBeingAttacked.monsterName}, \n attack it with a strength that in die terms is equivalent to {damage_dealing}.")
+        monsterBeingAttacked.monsterHealth -= damage_dealing;
+        Console.WriteLine($"monster health is now {monsterBeingAttacked.monsterHealth}.");
+    }
+
     public void AddItemToInventory(string itemToAdd)
     {
         Inventory.Add(itemToAdd);
@@ -216,7 +268,7 @@ class Character
 }
 
 
-class Monsters 
+class Monsters
 {
     public int monsterHealth = 100;
     public string monsterName;
@@ -224,10 +276,18 @@ class Monsters
 
     public Monsters(string Name, int Health, int Damage)
     {
-        Name = monsterName;
+        monsterName = Name;
         Health = monsterHealth;
         Damage = monsterDamage;
     }
-}
 
+    public int GetDamage()
+    {
+        return MyProgram.DnDice();
+    }
+    public bool Attack(Characther charactherBeingAttacked)
+    {
+        
+    }
+}
 
